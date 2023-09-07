@@ -1,11 +1,36 @@
 import { injectAll } from "./modular.js";
+import { getCookie, setCookie } from "./cookie.js";
+
+function changeCurrentSlideNo(newSlideNumber){
+    currentSlideNo = newSlideNumber
+    setCookie("currentSlideNo", currentSlideNo);
+}
 
 injectAll();
 
 
 let slidesParentDiv = document.querySelector('.slides');
 let slides = document.querySelectorAll('.slide');
-let currentSlide = document.querySelector('.slide.show');
+
+
+var currentSlideNo = 1;
+if (getCookie("currentSlideNo")!=""){
+    currentSlideNo = Number(getCookie("currentSlideNo"))
+}
+setCookie("currentSlideNo", currentSlideNo);
+var totalSlides = 0;
+
+let currentSlide = null;
+
+function updateCurrentSlide() {
+    currentSlide = slides[currentSlideNo];
+}
+
+updateCurrentSlide();
+currentSlide.classList.add('show');
+
+
+// let currentSlide = document.querySelector('.slide.show');
 
 var slideCounter = document.querySelector('.counter');
 var leftBtn = document.querySelector('#left-btn');
@@ -16,34 +41,32 @@ var fullScreenBtn = document.querySelector('#full-screen');
 var smallScreenBtn = document.querySelector('#small-screen');
 
 
-var screenStatus = 0;
-var currentSlideNo = 1
-var totalSlides = 0;
-
 leftBtn.addEventListener('click', moveToLeftSlide);
 rightBtn.addEventListener('click', moveToRightSlide);
 fullScreenBtn.addEventListener('click', fullScreenMode);
 smallScreenBtn.addEventListener('click', smallScreenMode);
 
 function moveToLeftSlide() {
-    if (currentSlideNo === 1){
+    if (currentSlideNo == 0){
         return;
     }
     var tempSlide = currentSlide;
     currentSlide = currentSlide.previousElementSibling;
     tempSlide.classList.remove('show');
     currentSlide.classList.add('show');
+    changeCurrentSlideNo(currentSlideNo-1);
     update();
 }
   
 function moveToRightSlide() {
-    if (currentSlideNo === totalSlides){
+    if (currentSlideNo == totalSlides-1){
         return;
     }
     var tempSlide = currentSlide;
     currentSlide = currentSlide.nextElementSibling;
     tempSlide.classList.remove('show');
     currentSlide.classList.add('show');
+    changeCurrentSlideNo(currentSlideNo+1);
     update();
 }
   
@@ -51,20 +74,18 @@ function fullScreenMode() {
     presentation.classList.add('full-screen');
     fullScreenBtn.classList.remove('show');
     smallScreenBtn.classList.add('show');
-    screenStatus = 1;
 }
   
 function smallScreenMode() {
     presentation.classList.remove('full-screen');
     fullScreenBtn.classList.add('show');
     smallScreenBtn.classList.remove('show');
-    screenStatus = 0;
 }
   
 
 
 function hideLeftButton() {
-    if(currentSlideNo == 1) {
+    if(currentSlideNo == 0) {
         leftBtn.classList.remove('show');
     } else {
         leftBtn.classList.add('show');
@@ -72,32 +93,24 @@ function hideLeftButton() {
 }
   
 function hideRightButton() {
-    if(currentSlideNo === totalSlides) {
+    if(currentSlideNo == totalSlides-1) {
         rightBtn.classList.remove('show');
     } else {
         rightBtn.classList.add('show');
     }
 }
   
-function getCurrentSlideNo() {
-    let counter = 0;
-    slides.forEach((slide, i) => {
-    counter++
-    if(slide.classList.contains('show')){
-      currentSlideNo = counter;
-    }
-  });
-}
+
   
-function setSlideNo() {
-    slideCounter.innerText = `${currentSlideNo} of ${totalSlides}`
+function updateSlideNo() {
+    slideCounter.innerText = `${currentSlideNo+1} of ${totalSlides}`
 }
 
   
 function update() {
     totalSlides = slides.length;
-    getCurrentSlideNo();
-    setSlideNo();
+    updateCurrentSlide();
+    updateSlideNo();
     hideLeftButton();
     hideRightButton();
 }
