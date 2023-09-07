@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>ElVIS</title>
+  <link rel="stylesheet" href="css/style.css">
+  
+  <!-- Font Awesome Icon CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="container">
+    <div id="presentation" class="full-screen">
+    <section class="slides">
+      <div class="slide show" include="content/titel/index.html"></div>
+    </section>
+
+    <section class="counter">
+    </section>
+   
+    <section class="navigation">
+      <button id="full-screen" class="btn-screen">
+        <i class="fas fa-expand"></i>
+      </button>
+
+      <button id="small-screen" class="btn-screen show">
+        <i class="fas fa-compress"></i>
+      </button>
+
+      <button id="left-btn" class="btn">
+        <i class="fas fa-solid fa-caret-left"></i>
+      </button>
+
+      <button id="right-btn" class="btn">
+        <i class="fa-solid fa-caret-right"></i>
+      </button>
+    </section>
+
+    </div>
+  </div>
+<script type="module" src="js/index.js"></script>
+<script src="https://unpkg.com/katex/dist/katex.min.js"></script>
+<script src="https://unpkg.com/katex/dist/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/katex/dist/katex.min.css" />
+<script>
+renderMathInElement(document.body, {
+  delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+  ],
+  // • rendering keys, e.g.:
+  throwOnError : false
+});
+</script>
+</body>
+
+</html>
