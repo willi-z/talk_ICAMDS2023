@@ -166,23 +166,33 @@ a {
 
 .imageContainer-1 {
   display: grid;
-  height: 85%;
+  height: 250px;
   grid-template-columns: 600px;
   align-content: space-between;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .full-screen .imageContainer-1 {
+  height: 600px;
   grid-template-columns: 1200px;
 }
 
-.imageContainer-1 img {
+.imageContainer-1 .image {
+  display: grid;
+  grid-template-columns: auto;
+}
+
+.imageContainer-1 img{
   height: 220px;
-  object-fit: scale-down;
+  object-fit: fill;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .full-screen .imageContainer-1 img {
   height: 600px;
-  object-fit: scale-down;
 }
 
 .imageContainer-1 .center {
@@ -243,4 +253,8 @@ table {
   width:100%;
   height: 80%;
   border-spacing: 0;
+}
+
+li{
+  line-height: 2;
 }
